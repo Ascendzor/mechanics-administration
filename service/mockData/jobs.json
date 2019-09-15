@@ -1,0 +1,23 @@
+[
+    {
+        "id": "573978f0-d784-11e9-b393-755c122e2c56",
+        "timeStarted": "2019-09-15T06:45:01.056Z",
+        "timeEnded": null,
+        "hours": 0,
+        "customerId": "691afa10-d772-11e9-b393-755c122e2c56"
+    },
+    {
+        "id": "2",
+        "timeStarted": "2019-09-13T07:44:35.103Z",
+        "timeEnded": null,
+        "hours": 0,
+        "customerId": "1"
+    },
+    {
+        "id": "570c7580-d784-11e9-b393-755c122e2c56",
+        "timeStarted": "2019-09-15T06:45:00.760Z",
+        "timeEnded": null,
+        "hours": 0,
+        "customerId": "691afa10-d772-11e9-b393-755c122e2c56"
+    }
+]
