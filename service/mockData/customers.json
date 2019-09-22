@@ -1,18 +1,1 @@
-[
-    {
-        "id": "1",
-        "name": "alice",
-        "phoneNumber": "+64 123 456 789",
-        "registrations": [
-        "EUJ889"
-        ],
-        "jobsIds": ["2"]
-    },
-    {
-        "id": "691afa10-d772-11e9-b393-755c122e2c56",
-        "name": "abc",
-        "phoneNumber": "123123",
-        "registrations": [],
-        "jobs": ["573978f0-d784-11e9-b393-755c122e2c56","570c7580-d784-11e9-b393-755c122e2c56"]
-    }
-]
+[]

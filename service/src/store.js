@@ -1,10 +1,12 @@
 const AWS = require('aws-sdk')
 const uuidv1 = require('uuid/v1')
-const {CUSTOMERSDB, JOBSDB, STAGE} = process.env
+const {CUSTOMERSDB, JOBSDB, STAGE, REGION} = process.env
+
+console.log(process.env)
 
 const dynamoDb = STAGE === 'dev' ?
     new AWS.DynamoDB.DocumentClient({region: 'localhost', endpoint: 'http://localhost:8000'}) :
-    new AWS.DynamoDB.DocumentClient()
+    new AWS.DynamoDB.DocumentClient({region: REGION})
 
 const getCustomers = async ({ids}) => {
     const scanResult = await dynamoDb.scan({

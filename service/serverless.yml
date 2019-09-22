@@ -4,8 +4,9 @@ provider:
   name: aws
   runtime: nodejs10.x
   memorySize: 128
-  stage: ${file(env.yml):STAGE}
-  region: ${file(env.yml):REGION}
+  stage: ${opt:stage, 'dev'}
+  region: us-east-1
+  timeout: 30
   environment:
     CUSTOMERSDB: ${self:service}-${self:provider.stage}-customers
     JOBSDB: ${self:service}-${self:provider.stage}-jobs

@@ -5,7 +5,7 @@
   "main": "handler.js",
   "scripts": {
     "start": "sls offline",
-    "watch": "watch 'yarn start' ./src",
+    "deploy": "sls deploy --stage prod",
     "dynamodb": "sls dynamodb start",
     "test": "node test"
   },
