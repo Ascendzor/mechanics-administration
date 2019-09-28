@@ -7,6 +7,10 @@ import { Provider } from './AppContext';
 import reducer from './reducer';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo-hooks';
+import useReactRouter from 'use-react-router';
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import Home from './pages/Home';
+import Jobs from './pages/Jobs';
 
 const client = new ApolloClient({
   uri: 'http://localhost:3000/graphql'
@@ -14,33 +18,44 @@ const client = new ApolloClient({
 
 const { Sider } = Layout;
 
+const Contents = () => {
+  const { history, location, match } = useReactRouter();
+  console.log({ history, location, match })
+
+  return <div className="App">
+  <Layout style={{height: '100%'}}>
+    <Sider trigger={null} collapsible collapsed={false}>
+      <div style={{height: 70}} />
+      <Menu theme="dark" mode="inline" selectedKeys={[location.pathname.split('/')[1] || 'home']}>
+        <Menu.Item key="home"><Link to="/">
+          <Icon type="home" />
+          <span>Home</span>
+        </Link></Menu.Item>
+        <Menu.Item key="customers"><Link to="/customers">
+          <Icon type="user" />
+          <span>Customers</span>
+        </Link></Menu.Item>
+        <Menu.Item key="jobs"><Link to="/jobs">
+          <Icon type="unordered-list" />
+          <span>Jobs</span>
+        </Link></Menu.Item>
+      </Menu>
+    </Sider>
+    <div style={{width: '100%', height: '100%'}}>
+      <Switch>
+        <Route exact path='/' component={Home} />
+        <Route path="/customers" component={Customers} />
+        <Route path="/jobs" component={Jobs} />
+      </Switch>
+    </div>
+  </Layout>
+</div>
+}
+
 export default () => {
   return (
-    <ApolloProvider client={client}>
-      <div className="App">
-        <Layout style={{height: '100%'}}>
-          <Sider trigger={null} collapsible collapsed={false}>
-            <div style={{height: 70}} />
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-              <Menu.Item key="1">
-                <Icon type="user" />
-                <span>Customers</span>
-              </Menu.Item>
-              <Menu.Item key="2">
-                <Icon type="video-camera" />
-                <span>Jobs</span>
-              </Menu.Item>
-              <Menu.Item key="3">
-                <Icon type="upload" />
-                <span>Done jobs</span>
-              </Menu.Item>
-            </Menu>
-          </Sider>
-          <div style={{width: '100%', height: '100%'}}>
-            <Customers />
-          </div>
-        </Layout>
-      </div>
-    </ApolloProvider>
+    <ApolloProvider client={client}><Router>
+      <Contents />
+    </Router></ApolloProvider>
   );
 }
