@@ -1,27 +1,36 @@
-import React, { useContext, useEffect } from 'react';
-import { Table } from 'antd';
-import { Row, Col } from 'antd';
-import AppContext from '../AppContext';
+import React, { useState } from 'react';
+import { Table, Row, Col, Button, Icon } from 'antd';
 import { useQuery } from 'react-apollo-hooks';
 import gql from 'graphql-tag';
 
-const GET_DOGS = gql`
+const query = gql`
   {
     customers {
       name
+      id
+      phoneNumber
     }
   }
 `;
 
 export default () => {
-  const { state, dispatch } = useContext(AppContext);
-  const { data, error, loading } = useQuery(GET_DOGS);
-
+  const { data, error, loading } = useQuery(query);
   console.log({data, error, loading})
 
-  return <Row className='Customers'>
-    <Col span={12}>
-      <div>Customers</div>
+  return <Row className='Customers' style={{padding: 10}}>
+    <Col span={24}>
+      <div style={{height: 50, position: 'relative'}}>
+        <span style={{lineHeight: '50px'}}>Customers</span>
+        <div style={{position: 'absolute', bottom: 10, right: 0}}>
+          <Button
+            type='primary'
+            icon='plus'
+            onClick={() => console.log('start creation of new customer')}
+          >
+            Create new
+          </Button>
+        </div>
+      </div>
       <Table
         style={{width: '100%'}}
         columns={[
@@ -36,19 +45,23 @@ export default () => {
             key: 'phoneNumber'
           },
           {
-            title: 'Jobs',
-            dataIndex: 'jobs',
-            key: 'jobs'
+            title: 'Edit',
+            dataIndex: '',
+            width: 100,
+            key: 'edit',
+            render: () => <Button type='dashed' icon='edit' />,
+          },
+          {
+            title: 'Delete',
+            dataIndex: '',
+            width: 100,
+            key: 'delete',
+            render: () => <Button type='danger' icon='delete' />,
           }
         ]}
-        dataSource={state.users}
+        loading={loading}
+        dataSource={data && data.customers}
       />
-    </Col>
-    <Col span={12}>
-      Selected Customer
-      <div>
-        Create customer
-      </div>
     </Col>
   </Row>
 }

@@ -5,7 +5,7 @@ type User = {
     id: string
 }
 type IState = {
-    users: User[]
+    route: String
 }
 type IAction = {
     type: string
@@ -26,6 +26,6 @@ type IAction = {
 //   .catch(error => console.error(error));
 
 export default (state: IState, action: IAction): IState => {
-    if(action.type === 'setUsers') return {...state, users: action.data}
+    if(action.type === 'setRoute') return {...state, route: action.data}
     return state
 }

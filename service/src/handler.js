@@ -18,19 +18,21 @@ const typeDefs = gql`
   }
 
   type Customer {
-    id: ID!
-    name: String!
+    id: ID
+    name: String
     phoneNumber: String!
     registrations: [String]!
     jobs: [Job]!
+    tags: [String]!
   }
 
   type Job {
-    id: ID!
-    customer: Customer!
-    timeStarted: String!
-    timeEnded: String
-    hours: Float!
+    id: ID
+    customer: Customer
+    timeStarted: String
+    timeEnded: String!
+    costs: [String]
+    tags: [String]!
   }
 `;
 

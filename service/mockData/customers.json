@@ -1,1 +1,14 @@
-[]
+[
+    {
+        "id": "859cf420-e106-11e9-bbc9-397e193a9f25",
+        "name": "alice",
+        "phoneNumber": "1232123",
+        "jobs": []
+    },
+    {
+        "id": "994637c0-e106-11e9-bbc9-397e193a9f25",
+        "name": "bob",
+        "phoneNumber": "1232122",
+        "jobs": []
+    }
+]

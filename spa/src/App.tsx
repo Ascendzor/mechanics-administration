@@ -15,52 +15,32 @@ const client = new ApolloClient({
 const { Sider } = Layout;
 
 export default () => {
-  const [state, dispatch] = useReducer(reducer, {
-    users: []
-  });
-
-  useEffect(() => {
-    (async () => {
-      setTimeout(() => {
-        dispatch({
-          type: 'setUsers',
-          data: [{id: 'asdf', name: 'jeff'}, {id: 'fdsa', name: 'alice'}]
-        })
-      }, 2000)
-    })();
-  }, []);
-  
   return (
-    <Provider value={{
-      state,
-      dispatch
-    }}>
-      <ApolloProvider client={client}>
-        <div className="App">
-          <Layout style={{height: '100%'}}>
-            <Sider trigger={null} collapsible collapsed={false}>
-              <div style={{height: 70}} />
-              <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-                <Menu.Item key="1">
-                  <Icon type="user" />
-                  <span>Customers</span>
-                </Menu.Item>
-                <Menu.Item key="2">
-                  <Icon type="video-camera" />
-                  <span>Jobs</span>
-                </Menu.Item>
-                <Menu.Item key="3">
-                  <Icon type="upload" />
-                  <span>Done jobs</span>
-                </Menu.Item>
-              </Menu>
-            </Sider>
-            <div style={{width: '100%', height: '100%'}}>
-              <Customers />
-            </div>
-          </Layout>
-        </div>
-      </ApolloProvider>
-    </Provider>
+    <ApolloProvider client={client}>
+      <div className="App">
+        <Layout style={{height: '100%'}}>
+          <Sider trigger={null} collapsible collapsed={false}>
+            <div style={{height: 70}} />
+            <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+              <Menu.Item key="1">
+                <Icon type="user" />
+                <span>Customers</span>
+              </Menu.Item>
+              <Menu.Item key="2">
+                <Icon type="video-camera" />
+                <span>Jobs</span>
+              </Menu.Item>
+              <Menu.Item key="3">
+                <Icon type="upload" />
+                <span>Done jobs</span>
+              </Menu.Item>
+            </Menu>
+          </Sider>
+          <div style={{width: '100%', height: '100%'}}>
+            <Customers />
+          </div>
+        </Layout>
+      </div>
+    </ApolloProvider>
   );
 }
