@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import {
     Input,
     Modal,
-    Button
+    Button,
+    notification
   } from 'antd';
 import Form, { Field } from 'rc-field-form';
 
@@ -46,6 +47,11 @@ export default (props: ICreateCustomerProps) => {
                     customers: [...customers, response.data.addCustomer]
                 }
             })
+            notification.success({
+                message: 'Customer created',
+                description: `Successfully created ${response.data.addCustomer.name}`,
+                duration: 7
+            });
             close()
         }
     });
