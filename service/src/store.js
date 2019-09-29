@@ -2,30 +2,31 @@ const AWS = require('aws-sdk')
 const uuidv1 = require('uuid/v1')
 const {CUSTOMERSDB, JOBSDB, STAGE, REGION} = process.env
 
-console.log(process.env)
-
 const dynamoDb = STAGE === 'dev' ?
     new AWS.DynamoDB.DocumentClient({region: 'localhost', endpoint: 'http://localhost:8000'}) :
     new AWS.DynamoDB.DocumentClient({region: REGION})
 
+
+const defaultCustomerObject = {
+    id: null, names: [], phoneNumbers: [], emails: [], registrations: [], jobsIds: []
+}
 const getCustomers = async ({ids}) => {
     const scanResult = await dynamoDb.scan({
         TableName: CUSTOMERSDB,
     }).promise()
 
-    let customers = scanResult.Items
-
+    let customers = scanResult.Items.map(customer => ({...defaultCustomerObject, ...customer}))
     if(ids) customers = customers.filter(c => ids.includes(c.id))
 
     return customers
 }
 
-const putCustomer = async ({name, phoneNumber, email}) => {
+const putCustomer = async ({names, phoneNumbers, emails}) => {
     const newCustomer = {
         id: uuidv1(),
-        name,
-        phoneNumber,
-        email,
+        names,
+        phoneNumbers,
+        emails,
         registrations: [],
         jobsIds: []
     }

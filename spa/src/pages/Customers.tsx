@@ -1,24 +1,11 @@
 import React, { useState } from 'react';
 import { Table, Row, Col, Button } from 'antd';
 import { useQuery } from 'react-apollo-hooks';
-import gql from 'graphql-tag';
-import { Route, Link } from "react-router-dom";
-import useReactRouter from 'use-react-router';
 import CreateCustomer from '../Modals/CreateCustomer';
-
-const query = gql`
-  {
-    customers {
-      name
-      id
-      phoneNumber
-    }
-  }
-`;
+import { GET_CUSTOMERS } from '../queries';
 
 export default () => {
-  const { data, error, loading } = useQuery(query);
-  const { match } = useReactRouter();
+  const { data, error, loading } = useQuery(GET_CUSTOMERS);
   const [isCreatingCustomer, setIsCreatingCustomer] = useState(false);
 
   return <Row className='Customers' style={{padding: 10}}>
@@ -40,13 +27,18 @@ export default () => {
         columns={[
           {
             title: 'Name',
-            dataIndex: 'name',
-            key: 'name'
+            dataIndex: 'names',
+            key: 'names'
           },
           {
             title: 'Phone',
-            dataIndex: 'phoneNumber',
-            key: 'phoneNumber'
+            dataIndex: 'phoneNumbers',
+            key: 'phoneNumbers'
+          },
+          {
+            title: 'Email',
+            dataIndex: 'emails',
+            key: 'emails'
           },
           {
             title: 'Edit',

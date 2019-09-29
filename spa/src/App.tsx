@@ -19,7 +19,6 @@ const { Sider } = Layout;
 
 const Contents = () => {
   const { history, location, match } = useReactRouter();
-  console.log({ history, location, match })
 
   return <div className="App">
   <Layout style={{height: '100%'}}>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     Input,
     Modal,
@@ -6,37 +6,14 @@ import {
     notification
   } from 'antd';
 import Form, { Field } from 'rc-field-form';
-
-import useReactRouter from 'use-react-router';
 import { useMutation } from 'react-apollo-hooks';
-import gql from 'graphql-tag';
-import useForm from 'react-hook-form';
-
-const ADD_CUSTOMER = gql`
-    mutation AddCustomer($name: String, $phoneNumber: String!, $email: String!) {
-        addCustomer(name: $name, phoneNumber: $phoneNumber, email: $email) {
-            name
-            id
-            phoneNumber
-        }
-    }
-`
-const GET_CUSTOMERS = gql`
-    {
-        customers {
-            name
-            id
-            phoneNumber
-        }
-    }
-`
+import {ADD_CUSTOMER, GET_CUSTOMERS} from '../queries';
 
 interface ICreateCustomerProps {
     close: () => void;
 }
 export default (props: ICreateCustomerProps) => {
     const {close} = props;
-    const { history } = useReactRouter();
 
     const [addCustomer, { loading }] = useMutation(ADD_CUSTOMER, {
         update: (cache, response: any) => {
@@ -65,7 +42,11 @@ export default (props: ICreateCustomerProps) => {
     >  
         <Form form={form} onFinish={e => {
             addCustomer({
-                variables: e
+                variables: {
+                    names: [e.name],
+                    emails: [e.email],
+                    phoneNumbers: [e.phoneNumber]
+                }
             })
         }}>
             <div style={{marginBottom: 20}}>

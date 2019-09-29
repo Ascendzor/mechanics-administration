@@ -11,7 +11,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addCustomer(name: String, phoneNumber: String!, email: String!): Customer
+    addCustomer(names: [String], phoneNumbers: [String], emails: [String]): Customer
     addJob(customerId: String): Job
     deleteCustomer(customerId: String): Boolean
     deleteJob(jobId: String): Boolean
@@ -19,21 +19,21 @@ const typeDefs = gql`
 
   type Customer {
     id: ID
-    name: String
-    phoneNumber: String!
-    email: String!
-    registrations: [String]!
-    jobs: [Job]!
-    tags: [String]!
+    names: [String]
+    phoneNumbers: [String]
+    emails: [String]
+    registrations: [String]
+    jobs: [Job]
+    tags: [String]
   }
 
   type Job {
     id: ID
     customer: Customer
-    timeStarted: String
-    timeEnded: String!
+    timeStarted: [String]
+    timeEnded: [String]
     costs: [String]
-    tags: [String]!
+    tags: [String]
   }
 `;
 
@@ -62,11 +62,7 @@ const resolvers = {
     addCustomer: async (obj, args, context, info) => {
       await beforeAnything();
       console.log({obj, args, context, info})
-      const customer = await store.putCustomer({
-        name: args.name,
-        phoneNumber: args.phoneNumber,
-        email: args.email
-      })
+      const customer = await store.putCustomer({...args})
       
       return customer
     },
