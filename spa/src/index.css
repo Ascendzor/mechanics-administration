@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.brand-logo {
+  stroke: #aaa;
+  fill: #aaa;
+}
+.brand-logo:hover {
+  cursor: pointer;
+  stroke: #ddd;
+  fill: #ddd;
+}

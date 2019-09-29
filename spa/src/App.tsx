@@ -11,6 +11,7 @@ import useReactRouter from 'use-react-router';
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import Home from './pages/Home';
 import Jobs from './pages/Jobs';
+import { ReactComponent as Logo } from './logo.svg';
 
 const client = new ApolloClient({
   uri: 'http://localhost:3000/graphql'
@@ -25,7 +26,14 @@ const Contents = () => {
   return <div className="App">
   <Layout style={{height: '100%'}}>
     <Sider trigger={null} collapsible collapsed={false}>
-      <div style={{height: 70}} />
+      <a href='https://github.com/ascendzor/mechanics-administration' target='_blank'>
+        <div className='brand-logo' style={{height: 70, padding: 10}}>
+          <Logo style={{
+            width: 'auto',
+            height: '100%'
+          }}/>
+        </div>
+      </a>
       <Menu
         theme="dark"
         mode="inline"
