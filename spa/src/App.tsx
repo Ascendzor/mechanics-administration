@@ -26,7 +26,12 @@ const Contents = () => {
   <Layout style={{height: '100%'}}>
     <Sider trigger={null} collapsible collapsed={false}>
       <div style={{height: 70}} />
-      <Menu theme="dark" mode="inline" selectedKeys={[location.pathname.split('/')[1] || 'home']}>
+      <Menu
+        theme="dark"
+        mode="inline"
+        selectedKeys={[location.pathname.split('/')[1] || 'home']}
+        style={{textAlign: 'left'}}
+      >
         <Menu.Item key="home"><Link to="/">
           <Icon type="home" />
           <span>Home</span>
