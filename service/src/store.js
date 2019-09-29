@@ -20,11 +20,12 @@ const getCustomers = async ({ids}) => {
     return customers
 }
 
-const putCustomer = async ({name, phoneNumber}) => {
+const putCustomer = async ({name, phoneNumber, email}) => {
     const newCustomer = {
         id: uuidv1(),
         name,
         phoneNumber,
+        email,
         registrations: [],
         jobsIds: []
     }

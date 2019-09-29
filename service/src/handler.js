@@ -64,7 +64,8 @@ const resolvers = {
       console.log({obj, args, context, info})
       const customer = await store.putCustomer({
         name: args.name,
-        phoneNumber: args.phoneNumber
+        phoneNumber: args.phoneNumber,
+        email: args.email
       })
       
       return customer

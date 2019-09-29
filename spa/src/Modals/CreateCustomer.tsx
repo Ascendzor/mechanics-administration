@@ -15,22 +15,47 @@ const ADD_CUSTOMER = gql`
     mutation AddCustomer($name: String, $phoneNumber: String!, $email: String!) {
         addCustomer(name: $name, phoneNumber: $phoneNumber, email: $email) {
             name
+            id
             phoneNumber
-            email
+        }
+    }
+`
+const GET_CUSTOMERS = gql`
+    {
+        customers {
+            name
+            id
+            phoneNumber
         }
     }
 `
 
-export default () => {
+interface ICreateCustomerProps {
+    close: () => void;
+}
+export default (props: ICreateCustomerProps) => {
+    const {close} = props;
     const { history } = useReactRouter();
 
-    const [addCustomer, { loading }] = useMutation(ADD_CUSTOMER);
+    const [addCustomer, { loading }] = useMutation(ADD_CUSTOMER, {
+        update: (cache, response: any) => {
+            const { customers } = cache.readQuery({ query: GET_CUSTOMERS }) as any;
+            cache.writeQuery({
+                query: GET_CUSTOMERS,
+                data: {
+                    customers: [...customers, response.data.addCustomer]
+                }
+            })
+            close()
+        }
+    });
     const [form] = Form.useForm();
 
     return <Modal
         title='Create Customer'
         visible={true}
         footer={null}
+        onCancel={close}
     >  
         <Form form={form} onFinish={e => {
             addCustomer({
@@ -60,7 +85,8 @@ export default () => {
                 <Button
                     key='cancel'
                     type='default'
-                    onClick={history.goBack}
+                    onClick={close}
+                    disabled={loading}
                 >
                     Cancel
                 </Button>
@@ -69,6 +95,8 @@ export default () => {
                     icon='plus'
                     style={{marginLeft: 10}}
                     onClick={form.submit}
+                    disabled={loading}
+                    loading={loading}
                 >
                     Create
                 </Button>
