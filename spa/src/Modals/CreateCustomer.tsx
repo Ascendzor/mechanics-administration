@@ -24,9 +24,11 @@ export default (props: ICreateCustomerProps) => {
                     customers: [...customers, response.data.addCustomer]
                 }
             })
+            const name = response.data.addCustomer.names.length === 1 ? response.data.addCustomer.names[0] : 'unnamed';
+
             notification.success({
                 message: 'Customer created',
-                description: `Successfully created ${response.data.addCustomer.name}`,
+                description: `Successfully created ${name}`,
                 duration: 7
             });
             close()

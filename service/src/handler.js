@@ -5,7 +5,7 @@ const { ApolloServer, gql } = require('apollo-server-lambda')
 const typeDefs = gql`
   type Query {
     customers: [Customer]
-    customer(id: String): Customer
+    customer(customerId: String): Customer
     jobs: [Job]
     job(id: String): Job
   }
@@ -50,7 +50,7 @@ const resolvers = {
     },
     customer: async (obj, args, context, info) => {
       await beforeAnything();
-      const customer = (await store.getCustomers({ids: [args.id]}))[0]
+      const customer = (await store.getCustomers({ids: [args.customerId]}))[0]
       return customer
     },
     jobs: async () => {

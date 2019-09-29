@@ -21,3 +21,25 @@ export const ADD_CUSTOMER = gql`
         }
     }
 `
+
+export const GET_CUSTOMER = gql`
+    query Customer($customerId: String) {
+        customer(customerId: $customerId) {
+            id
+            names
+            emails
+            phoneNumbers
+            registrations
+            jobs {
+                id
+            }
+            tags
+        }
+    }
+`
+
+export const DELETE_CUSTOMER = gql`
+    mutation DeleteCustomer($customerId: String){
+        deleteCustomer(customerId: $customerId)
+    }
+`

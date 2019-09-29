@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { Table, Row, Col, Button } from 'antd';
 import { useQuery } from 'react-apollo-hooks';
 import CreateCustomer from '../Modals/CreateCustomer';
+import DeleteCustomer from '../Modals/DeleteCustomer';
 import { GET_CUSTOMERS } from '../queries';
+import { Customer } from '../Models';
 
 export default () => {
   const { data, error, loading } = useQuery(GET_CUSTOMERS);
   const [isCreatingCustomer, setIsCreatingCustomer] = useState(false);
+  const [customerToDelete, setCustomerToDelete] = useState('');
 
   return <Row className='Customers' style={{padding: 10}}>
     <Col span={24}>
@@ -52,7 +55,13 @@ export default () => {
             dataIndex: '',
             width: 100,
             key: 'delete',
-            render: () => <Button type='danger' icon='delete' />,
+            render: (customer: Customer) => <Button
+              type='danger'
+              icon='delete'
+              onClick={() => {
+                setCustomerToDelete(customer.id)
+              }}
+            />,
           }
         ]}
         loading={loading}
@@ -61,6 +70,10 @@ export default () => {
     </Col>
     {isCreatingCustomer && <CreateCustomer
       close={() => setIsCreatingCustomer(false)}
+    />}
+    {customerToDelete && <DeleteCustomer
+      close={() => setCustomerToDelete('')}
+      customerId={customerToDelete}
     />}
   </Row>
 }
