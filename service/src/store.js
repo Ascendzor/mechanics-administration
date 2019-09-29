@@ -16,7 +16,7 @@ const getCustomers = async ({ids}) => {
     let customers = scanResult.Items
 
     if(ids) customers = customers.filter(c => ids.includes(c.id))
-    
+
     return customers
 }
 

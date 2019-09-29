@@ -12,6 +12,7 @@ provider:
     JOBSDB: ${self:service}-${self:provider.stage}-jobs
     STAGE: ${self:provider.stage}
     REGION: ${self:provider.region}
+    ARTIFICIAL_DELAY: ${opt:ARTIFICIAL_DELAY, 'false'}
   iamRoleStatements:
     - Effect: Allow
       Action: "*"

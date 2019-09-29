@@ -11,16 +11,17 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addCustomer(name: String!, phoneNumber: String!): Customer
-    addJob(customerId: String!): Job
-    deleteCustomer(customerId: String!): Boolean
-    deleteJob(jobId: String!): Boolean
+    addCustomer(name: String, phoneNumber: String!, email: String!): Customer
+    addJob(customerId: String): Job
+    deleteCustomer(customerId: String): Boolean
+    deleteJob(jobId: String): Boolean
   }
 
   type Customer {
     id: ID
     name: String
     phoneNumber: String!
+    email: String!
     registrations: [String]!
     jobs: [Job]!
     tags: [String]!
@@ -36,22 +37,30 @@ const typeDefs = gql`
   }
 `;
 
+const beforeAnything = async () => {
+  process.env.ARTIFICIAL_DELAY && await new Promise((resolve) => setTimeout(resolve, 2000))
+}
 // Provide resolver functions for your schema fields
 const resolvers = {
   Query: {
     customers: async () => {
+      await beforeAnything();
+      process.env.ARTIFICIAL_DELAY && await new Promise((resolve) => setTimeout(resolve, 2000))
       return await store.getCustomers({})
     },
     customer: async (obj, args, context, info) => {
+      await beforeAnything();
       const customer = (await store.getCustomers({ids: [args.id]}))[0]
       return customer
     },
     jobs: async () => {
+      await beforeAnything();
       return await store.getJobs({})
     }
   },
   Mutation: {
     addCustomer: async (obj, args, context, info) => {
+      await beforeAnything();
       console.log({obj, args, context, info})
       const customer = await store.putCustomer({
         name: args.name,
@@ -61,6 +70,7 @@ const resolvers = {
       return customer
     },
     addJob: async (obj, args, context, info) => {
+      await beforeAnything();
       console.log({obj, args, context, info})
       const job = await store.putJob({
         customerId: args.customerId
@@ -71,6 +81,7 @@ const resolvers = {
       return job
     },
     deleteCustomer: async (obj, args, context, info) => {
+      await beforeAnything();
       console.log({obj, args, context, info})
       const customer = await store.getCustomer({id: args.customerId})
       await Promise.all([
@@ -81,6 +92,7 @@ const resolvers = {
       return true
     },
     deleteJob: async (obj, args, context, info) => {
+      await beforeAnything();
       console.log({obj, args, context, info})
       await store.deleteJob({id: args.jobId})
 
@@ -89,6 +101,7 @@ const resolvers = {
   },
   Job: {
     customer: async (job, args) => {
+      await beforeAnything();
       console.log('---------- Job: customer')
       console.log({job, args})
       const customer = await store.getCustomer({id: job.customerId})
@@ -97,6 +110,7 @@ const resolvers = {
   },
   Customer: {
     jobs: async (customer, args) => {
+      await beforeAnything();
       console.log('---------- Customer: jobs')
       console.log({customer, args})
       const jobs = await store.getJobs({ids: customer.jobsIds})

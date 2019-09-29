@@ -6,3 +6,26 @@
 #root {
   height: 100%;
 }
+
+form input {
+  display: block;
+  width: 100%;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  padding: 10px 15px;
+  transition: all .3s;
+  outline-offset: -2px;
+  border: 1px solid #aaa;
+}
+form input:hover {
+  border: 1px solid #1890ff;
+}
+form input.error {
+  border-width: 1px 1px 1px 10px;
+  border-color: #ff4d4f;
+  background-color: #ffccc7;
+}
+form label {
+  padding-left: 4px;
+  font-weight: 500;
+}

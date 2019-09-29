@@ -5,6 +5,7 @@
   "main": "handler.js",
   "scripts": {
     "start": "sls offline",
+    "start-with-lag": "yarn start --ARTIFICIAL_DELAY true",
     "deploy": "sls deploy --stage prod",
     "dynamodb": "sls dynamodb start",
     "test": "node test"
