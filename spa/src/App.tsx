@@ -1,10 +1,8 @@
-import React, { useReducer, useEffect } from 'react';
+import React from 'react';
 import './App.css';
 import { Layout, Menu, Icon } from 'antd';
 import 'antd/dist/antd.css';
 import Customers from './pages/Customers';
-import { Provider } from './AppContext';
-import reducer from './reducer';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo-hooks';
 import useReactRouter from 'use-react-router';

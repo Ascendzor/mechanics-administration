@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
-import { Table, Row, Col, Button, Icon } from 'antd';
+import React from 'react';
+import { Table, Row, Col, Button } from 'antd';
 import { useQuery } from 'react-apollo-hooks';
 import gql from 'graphql-tag';
+import { Route, Link } from "react-router-dom";
+import useReactRouter from 'use-react-router';
+import CreateCustomer from '../Modals/CreateCustomer';
 
 const query = gql`
   {
@@ -15,20 +18,22 @@ const query = gql`
 
 export default () => {
   const { data, error, loading } = useQuery(query);
-  console.log({data, error, loading})
+  const { match } = useReactRouter();
 
   return <Row className='Customers' style={{padding: 10}}>
     <Col span={24}>
       <div style={{height: 50, position: 'relative'}}>
         <span style={{lineHeight: '50px'}}>Customers</span>
         <div style={{position: 'absolute', bottom: 10, right: 0}}>
-          <Button
-            type='primary'
-            icon='plus'
-            onClick={() => console.log('start creation of new customer')}
-          >
-            Create new
-          </Button>
+          <Link to='/customers/create'>
+            <Button
+              type='primary'
+              icon='plus'
+              onClick={() => console.log('start creation of new customer')}
+            >
+              Create new
+            </Button>
+          </Link>
         </div>
       </div>
       <Table
@@ -63,5 +68,6 @@ export default () => {
         dataSource={data && data.customers}
       />
     </Col>
+    <Route path={`${match.path}/create`} component={CreateCustomer} />
   </Row>
 }
