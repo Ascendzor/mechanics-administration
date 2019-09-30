@@ -30,18 +30,18 @@ export default () => {
         columns={[
           {
             title: 'Name',
-            dataIndex: 'names',
-            key: 'names'
+            dataIndex: 'name',
+            key: 'name'
           },
           {
             title: 'Phone',
-            dataIndex: 'phoneNumbers',
-            key: 'phoneNumbers'
+            dataIndex: 'phoneNumber',
+            key: 'phoneNumber'
           },
           {
             title: 'Email',
-            dataIndex: 'emails',
-            key: 'emails'
+            dataIndex: 'email',
+            key: 'email'
           },
           {
             title: 'Edit',

@@ -11,27 +11,27 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addCustomer(names: [String], phoneNumbers: [String], emails: [String]): Customer
+    addCustomer(name: String, phoneNumber: String, email: String): Customer
     addJob(customerId: String): Job
     deleteCustomer(customerId: String): Boolean
     deleteJob(jobId: String): Boolean
   }
 
   type Customer {
-    id: ID
-    names: [String]
-    phoneNumbers: [String]
-    emails: [String]
+    id: ID!
+    name: String
+    phoneNumber: String
+    email: String
     registrations: [String]
     jobs: [Job]
     tags: [String]
   }
 
   type Job {
-    id: ID
-    customer: Customer
-    timeStarted: [String]
-    timeEnded: [String]
+    id: ID!
+    customer: Customer!
+    timeStarted: String
+    timeEnded: String!
     costs: [String]
     tags: [String]
   }

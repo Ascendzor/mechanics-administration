@@ -53,7 +53,7 @@ export default (props: IDeleteCustomerProps) => {
             <div style={{marginBottom: 40}}>
                 {getCustomerQueryResponse.loading && <div style={{textAlign: 'center'}}>... loading customer ...</div>}
                 {!getCustomerQueryResponse.loading && <div>
-                    <div>Are you sure you want to delete <span style={{fontWeight: 'bold'}}>{getCustomerQueryResponse.data.customer.names[0]}</span>?</div>
+                    <div>Are you sure you want to delete <span style={{fontWeight: 'bold'}}>{getCustomerQueryResponse.data.customer.name}</span>?</div>
                 </div>}
             </div>
             <div style={{width: '100%', textAlign: 'right'}}>

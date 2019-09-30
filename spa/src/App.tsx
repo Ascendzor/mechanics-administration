@@ -13,12 +13,13 @@ import { ReactComponent as Logo } from './logo.svg';
 
 const client = new ApolloClient({
   uri: 'http://localhost:3000/graphql'
+  // uri: 'https://g1x4xz8clk.execute-api.us-east-1.amazonaws.com/prod/graphql'
 })
 
 const { Sider } = Layout;
 
 const Contents = () => {
-  const { history, location, match } = useReactRouter();
+  const { location } = useReactRouter();
 
   return <div className="App">
   <Layout style={{height: '100%'}}>

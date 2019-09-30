@@ -24,7 +24,7 @@ export default (props: ICreateCustomerProps) => {
                     customers: [...customers, response.data.addCustomer]
                 }
             })
-            const name = response.data.addCustomer.names.length === 1 ? response.data.addCustomer.names[0] : 'unnamed';
+            const name = response.data.addCustomer.name ? response.data.addCustomer.name : 'unnamed';
 
             notification.success({
                 message: 'Customer created',
@@ -44,11 +44,7 @@ export default (props: ICreateCustomerProps) => {
     >  
         <Form form={form} onFinish={e => {
             addCustomer({
-                variables: {
-                    names: [e.name],
-                    emails: [e.email],
-                    phoneNumbers: [e.phoneNumber]
-                }
+                variables: {...e}
             })
         }}>
             <div style={{marginBottom: 20}}>

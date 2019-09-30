@@ -4,20 +4,20 @@ export const GET_CUSTOMERS = gql`
     {
         customers {
             id
-            names
-            emails
-            phoneNumbers
+            name
+            email
+            phoneNumber
         }
     }
 `;
 
 export const ADD_CUSTOMER = gql`
-    mutation AddCustomer($names: [String], $phoneNumbers: [String], $emails: [String]) {
-        addCustomer(names: $names, phoneNumbers: $phoneNumbers, emails: $emails) {
+    mutation AddCustomer($name: String, $phoneNumber: String, $email: String) {
+        addCustomer(name: $name, phoneNumber: $phoneNumber, email: $email) {
             id
-            names
-            emails
-            phoneNumbers
+            name
+            email
+            phoneNumber
         }
     }
 `
@@ -26,9 +26,9 @@ export const GET_CUSTOMER = gql`
     query Customer($customerId: String) {
         customer(customerId: $customerId) {
             id
-            names
-            emails
-            phoneNumbers
+            name
+            email
+            phoneNumber
             registrations
             jobs {
                 id

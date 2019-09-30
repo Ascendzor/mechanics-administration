@@ -8,7 +8,7 @@ const dynamoDb = STAGE === 'dev' ?
 
 
 const defaultCustomerObject = {
-    id: null, names: [], phoneNumbers: [], emails: [], registrations: [], jobsIds: []
+    id: null, name: null, phoneNumber: null, email: null, registrations: [], jobsIds: []
 }
 const getCustomers = async ({ids}) => {
     const scanResult = await dynamoDb.scan({
@@ -21,12 +21,12 @@ const getCustomers = async ({ids}) => {
     return customers
 }
 
-const putCustomer = async ({names, phoneNumbers, emails}) => {
+const putCustomer = async ({name, phoneNumber, email}) => {
     const newCustomer = {
         id: uuidv1(),
-        names,
-        phoneNumbers,
-        emails,
+        name,
+        phoneNumber,
+        email,
         registrations: [],
         jobsIds: []
     }
